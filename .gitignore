@@ -1,0 +1,13 @@
+.DS_Store
+.idea
+.vscode
+
+# node modules
+node_modules
+
+# local personal script
+script
+
+# dist files
+dist
+
