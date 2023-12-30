@@ -17,6 +17,7 @@
   "dependencies": {
     "core-js": "^3.23.1",
     "element-ui": "^2.15.9",
+    "notyf": "^3.10.0",
     "turndown": "^7.1.1",
     "turndown-plugin-gfm": "^1.0.2",
     "vue": "^2.6.14"
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
+    "@vue/cli-plugin-babel": "^5.0.8",
     "babel-loader": "^8.2.5",
     "babel-plugin-component": "^1.1.1",
     "copy-webpack-plugin": "^11.0.0",

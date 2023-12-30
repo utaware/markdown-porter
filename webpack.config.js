@@ -13,54 +13,48 @@ module.exports = {
   entry: {
     background: './src/background/index.js',
     content_script: './src/content/index.js',
-    options: './src/options/index.js'
+    options: './src/options/index.js',
   },
   output: {
     clean: true,
     filename: '[name].js',
-    path: resolve('dist')
+    path: resolve('dist'),
+    publicPath: './',
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
       },
       {
         test: /\.s?[ac]ss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
-      }
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
   resolve: {
     alias: {
-      '@': resolve('src')
-    }
+      '@': resolve('src'),
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
       chunks: ['options'],
       filename: 'options.html',
       template: './src/options/index.html',
-      title: 'options'
+      title: 'options',
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: 'manifest.json' },
-        { from: 'src/assets' },
-      ]
-    })
-  ]
+      patterns: [{ from: 'manifest.json' }, { from: 'src/assets' }],
+    }),
+  ],
 }

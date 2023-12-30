@@ -9,7 +9,7 @@ let turndownService = new TurndownService(defaultOptions)
 // plugin
 turndownService.use(gfm)
 
-function changeTurndownOptions (options) {
+function changeTurndownOptions(options) {
   turndownService = new TurndownService(options)
   turndownService.use(gfm)
 }
@@ -20,7 +20,9 @@ storage.get({ options: defaultOptions }).then((data) => {
 })
 
 chrome.storage.onChanged.addListener((changes) => {
-  const { options: { newValue } } = changes
+  const {
+    options: { newValue },
+  } = changes
   changeTurndownOptions(newValue)
 })
 
