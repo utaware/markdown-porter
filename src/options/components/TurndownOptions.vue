@@ -2,16 +2,19 @@
   <div class="turndown-options">
     <el-form
       ref="form"
-      :model="options"
-      label-width="120px"
+      :model="turndownOptions"
+      label-width="150px"
     >
       <el-form-item
         v-for="(val, key) of formOptions"
         :label="key"
         :key="key"
       >
+        <template #label>
+          <h4 class="label-tips">{{ key }}</h4>
+        </template>
         <!-- headingStyle -->
-        <el-select v-model="options[key]">
+        <el-select :value="turndownOptions[key]" @input="handlerSelectOptions(key, $event)">
           <el-option
             v-for="(item, index) in val"
             :label="item"
@@ -25,16 +28,11 @@
 </template>
 
 <script>
-// storage
-import { storage, defaultOptions } from '@/common/storage'
-// hub
-import Hub from '@/options/js/hub'
-
 export default {
   components: {},
   data () {
     return {
-      options: defaultOptions,
+      // form-data-options
       formOptions: {
         headingStyle: ['setext', 'atx'],
         bulletListMarker: ['-', '+', '*'],
@@ -47,34 +45,30 @@ export default {
       }
     }
   },
-  props: {},
-  methods: {
-    initTurndownOptions () {
-      storage.get({ options: defaultOptions }).then((data) => {
-        const { options } = data
-        this.options = options
-      })
-    },
-    deepClone (o) {
-      return JSON.parse(JSON.stringify(o))
-    }
-  },
-  watch: {
+  props: {
     options: {
-      deep: true,
-      handler (nv) {
-        const options = this.deepClone(nv)
-        storage.set({ options })
-        Hub.$emit('update', { options })
-      }
+      type: Object,
+      required: true
     }
   },
-  created () {
-    this.initTurndownOptions()
-  }
+  computed: {
+    turndownOptions() {
+      return this.options
+    }
+  },
+  methods: {
+    handlerSelectOptions(key, value) {
+      this.$emit('updateOptions', key, value)
+    }
+  },
+  watch: {},
+  created () {}
 }
 </script>
 
 <style scoped lang="scss">
-
+.label-tips {
+  color: black;
+  font-size: 16px;
+}
 </style>

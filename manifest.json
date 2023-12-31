@@ -5,6 +5,7 @@
   "manifest_version": 3,
   "action": {
     "default_title": "Markdown Clipboard",
+    "default_popup": "popup.html",
     "default_icon": {
       "128": "icons/128.png"
     }

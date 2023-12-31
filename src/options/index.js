@@ -1,22 +1,12 @@
 import Vue from 'vue'
 
-import {
-  Form,
-  FormItem,
-  Select,
-  Option,
-} from 'element-ui'
+import { Form, FormItem, Select, Option, Button, Card } from 'element-ui'
 
 import App from './App.vue'
 
-const elementUI = [
-  Form,
-  FormItem,
-  Select,
-  Option
-]
+const elementUI = [Form, FormItem, Select, Option, Button, Card]
 
-Vue.prototype.$ELEMENT = { size: 'small' }
+Vue.prototype.$ELEMENT = { size: 'medium' }
 
 elementUI.forEach((comp) => {
   Vue.use(comp)
@@ -24,5 +14,5 @@ elementUI.forEach((comp) => {
 
 new Vue({
   el: '#app',
-  render: (h) => h(App)
+  render: (h) => h(App),
 })

@@ -6,7 +6,7 @@
       v-for="(item, index) in htmlTemplates"
       :key="index"
     >
-      <pre v-html="markdownTemplates[index]"></pre>
+      <pre v-html="htmlTemplates2Markdown[index]"></pre>
     </li>
   </ul>
 </template>
@@ -14,16 +14,12 @@
 <script>
 // turndown
 import TurndownService from 'turndown'
-// hub
-import Hub from '@/options/js/hub'
-// storage
-import { storage, defaultOptions } from '@/common/storage'
 
 export default {
   components: {},
   data () {
     return {
-      options: {},
+      // markdown
       htmlTemplates: [
         `<h1>标题文本</h1>`,
         `<ul style="list-style: disc;"><li>red</li><li>yellow</li><li>blue</li></ul>`,
@@ -35,50 +31,34 @@ export default {
       ]
     }
   },
-  props: {},
+  props: {
+    options: {
+      type: Object,
+      required: true
+    }
+  },
   watch: {},
   computed: {
-    markdownTemplates () {
-      return this.htmlTemplates.map(v => {
-        return new TurndownService(this.options).turndown(v)
+    htmlTemplates2Markdown() {
+      const tds = new TurndownService(this.options)
+      return this.htmlTemplates.map((text) => {
+        return tds.turndown(text)
       })
     }
   },
-  methods: {
-    getMarkdown (html) {
-      return this.turndown.turndown(html)
-    },
-    initTurndownOptions () {
-      storage.get({ options: defaultOptions }).then((data) => {
-        const { options } = data
-        this.options = options
-      })
-    },
-    initHubUpdate () {
-      Hub.$on('update', ({ options }) => {
-        this.options = options
-      })
-    }
-  },
-  created () {
-    this.initTurndownOptions()
-    this.initHubUpdate()
-  }
+  methods: {}
 }
 </script>
 
 <style scoped lang="scss">
 .turndown-preview {
+  border-radius: 8px;
   .wrapper {
-    margin-bottom: 12px;
-    padding: 10px;
+    padding: 16px;
+    font-size: 16px;
     color: rgba(255,255,255,0.9);
     border: rgba(192, 119, 91, 0.7);
     background: rgba(192, 119, 91, 0.5);
-    border-radius: 8px;
-    &:last-of-type {
-      margin-bottom: 0;
-    }
   }
 }
 </style>

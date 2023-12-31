@@ -18,7 +18,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   const { menuItemId } = info
   const tabId = await getCurrentTabId()
   chrome.tabs.sendMessage(tabId, { action: 'copy', menuItemId }, (data) => {
-    console.log('background')
     console.log(data)
   })
 })

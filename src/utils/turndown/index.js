@@ -16,16 +16,18 @@ function changeTurndownOptions(options) {
   turndownService.use(gfm)
 }
 
-storage.get({ options: turndownDefaultOptions }).then((data) => {
-  const { options } = data
-  changeTurndownOptions(options)
+storage.get({ turndownOptions: turndownDefaultOptions }).then((data) => {
+  const { turndownOptions } = data
+  changeTurndownOptions(turndownOptions)
 })
 
-chrome.storage.onChanged.addListener((changes) => {
-  const {
-    options: { newValue },
-  } = changes
-  changeTurndownOptions(newValue)
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace === 'sync' && changes.turndownOptions?.newValue) {
+    const {
+      turndownOptions: { newValue },
+    } = changes
+    changeTurndownOptions(newValue)
+  }
 })
 
 export default function (el) {

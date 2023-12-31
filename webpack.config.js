@@ -14,6 +14,7 @@ module.exports = {
     background: './src/background/index.js',
     content_script: './src/content/index.js',
     options: './src/options/index.js',
+    popup: './src/popup/index.js',
   },
   output: {
     clean: true,
@@ -51,6 +52,12 @@ module.exports = {
       filename: 'options.html',
       template: './src/options/index.html',
       title: 'options',
+    }),
+    new HtmlWebpackPlugin({
+      chunks: ['popup'],
+      filename: 'popup.html',
+      template: './src/popup/index.html',
+      title: 'popup',
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin({

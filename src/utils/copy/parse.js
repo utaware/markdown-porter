@@ -1,6 +1,6 @@
 import { isDOMElement, isMatchNode } from '@/utils'
 
-import html2markdown from '@/utils/toMarkdown'
+import html2markdown from '@/utils/turndown'
 
 export function parseNodeContent(node) {
   while (node) {
